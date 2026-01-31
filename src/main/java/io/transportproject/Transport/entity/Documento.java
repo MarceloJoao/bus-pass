@@ -1,28 +1,30 @@
 package io.transportproject.Transport.entity;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Entity
-@Table(name = "viagens")
+@Table(name = "documentos")
 @Data
-public class Trip {
+public class Documento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String origem;
+    // Usuário dono do documento
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private User usuario;
 
     @Column(nullable = false)
-    private String destino;
+    private String nomeArquivo;
 
+    // caminho ou URL do PDF
     @Column(nullable = false)
-    private LocalDateTime horarioPartida;
+    private String urlArquivo;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TipoViagem tipo;
+    private StatusDocumento status;
 }
