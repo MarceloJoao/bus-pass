@@ -1,4 +1,8 @@
 package io.transportproject.Transport.repository;
 
-public interface UserRepository {
+import io.transportproject.Transport.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface UserRepository extends JpaRepository<User, Long>{
 }
