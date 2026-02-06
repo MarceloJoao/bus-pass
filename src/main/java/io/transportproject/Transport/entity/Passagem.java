@@ -4,7 +4,12 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "passagens")
+@Table(
+    name = "passagens",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"viagem_id", "numero_assento"})
+    }
+)
 @Data
 public class Passagem {
 
@@ -12,19 +17,21 @@ public class Passagem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Usuário que comprou
-    @ManyToOne
+    // Usuário que comprou a passagem
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
     private User usuario;
 
-    // Viagem comprada
-    @ManyToOne
+    // Viagem associada
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "viagem_id", nullable = false)
     private Trip viagem;
 
-    @Column(nullable = false)
+    // Número do assento
+    @Column(name = "numero_assento", nullable = false)
     private Integer numeroAssento;
 
+    // Se já foi pago
     @Column(nullable = false)
-    private Boolean pago;
+    private Boolean pago = false;
 }
