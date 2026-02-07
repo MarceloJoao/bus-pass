@@ -1,17 +1,22 @@
 spring:
-  application:
-    name: transport-backend
-
   datasource:
-    url: jdbc:postgresql://localhost:5432/transporte_db
-    username: transporte_user
-    password: 123456
+    url: jdbc:postgresql://db:5432/transporte_db
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update   # cria tabelas automaticamente
-    show-sql: true       # mostra SQL no console
+      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  sql:
+    init:
+      mode: always
+
+server:
+  port: 8080
