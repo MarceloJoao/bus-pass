@@ -1,5 +1,5 @@
 package io.transportproject.Transport.entity;
 
-public enum StatusDocumento {
+public enum DocumentStatus {
     PENDENTE, APROVADO, REPROVADO, REJEITADO
 }

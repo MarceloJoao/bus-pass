@@ -13,18 +13,18 @@ public class TripService {
 
     private final TripRepository repository;
 
-    // cadastrar viagem
-    public Trip cadastrar(Trip trip) {
+    // Cadastrar viagem
+    public Trip create(Trip trip) {
         return repository.save(trip);
     }
 
-    // listar todas as viagens
-    public List<Trip> listarTodas() {
+    // Listar todas as viagens
+    public List<Trip> listAll() {
         return repository.findAll();
     }
 
     // buscar por ID
-    public Trip buscarPorId(Long id) {
+    public Trip searchById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Viagem não encontrada"));
     }

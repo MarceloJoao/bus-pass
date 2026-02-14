@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -17,19 +17,19 @@ public class UserController {
 
     // POST - cadastrar usuário
     @PostMapping
-    public ResponseEntity<User> cadastrar(@RequestBody User user) {
-        return ResponseEntity.ok(service.cadastrar(user));
+    public ResponseEntity<User> create(@RequestBody User user) {
+        return ResponseEntity.ok(service.create(user));
     }
 
     // GET - listar usuários
     @GetMapping
-    public ResponseEntity<List<User>> listar() {
-        return ResponseEntity.ok(service.listarTodos());
+    public ResponseEntity<List<User>> list() {
+        return ResponseEntity.ok(service.listAll());
     }
 
     // GET - buscar usuário por id
     @GetMapping("/{id}")
-    public ResponseEntity<User> buscar(@PathVariable Long id) {
-        return ResponseEntity.ok(service.buscarPorId(id));
+    public ResponseEntity<User> search(@PathVariable Long id) {
+        return ResponseEntity.ok(service.searchById(id));
     }
 }

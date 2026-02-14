@@ -4,42 +4,42 @@
 
 ---
 
-## Usuários (`/usuarios`)
+## Usuários (`/users`)
 
 ### 1. Criar Usuário
 
 * **Método:** `POST`
-* **URL:** `/usuarios`
+* **URL:** `/users`
 * **Body (JSON):**
 ```json
 {
   "name": "João Silva",
-  "email": "joao@email.com"
+  "email": "joao@email.com",
+  "phone": "84911111111"
 }
 
 ```
 
 
-
 ### 2. Listar todos
 
 * **Método:** `GET`
-* **URL:** `/usuarios`
+* **URL:** `/users`
 
 ### 3. Buscar por ID
 
 * **Método:** `GET`
-* **URL:** `/usuarios/{id}`
-* **Exemplo:** `/usuarios/1`
+* **URL:** `/users/{id}`
+* **Exemplo:** `/users/1`
 
 ---
 
-## Viagens (`/viagens`)
+## Viagens (`/trips`)
 
 ### 1. Cadastrar Viagem
 
 * **Método:** `POST`
-* **URL:** `/viagens`
+* **URL:** `/trips`
 * **Body (JSON):**
 * *Formatos de data: ISO8601 (AAAA-MM-DDTHH:mm:ss)*
 * *Tipos: `EMPRESA` ou `PREFEITURA*`
@@ -47,10 +47,11 @@
 
 ```json
 {
-  "origem": "São Paulo",
-  "destino": "Rio de Janeiro",
-  "horarioPartida": "2024-12-25T08:00:00",
-  "tipo": "EMPRESA"
+  "origin": "São Paulo",
+  "destination": "Rio de Janeiro",
+  "departureTime": "2024-12-25T08:00:00",
+  "type": "EMPRESA",
+  "details": "Parada do viaduto, chegar com pelo menos 20 minutos de antecedência"
 }
 
 ```
@@ -60,39 +61,39 @@
 ### 2. Listar Viagens
 
 * **Método:** `GET`
-* **URL:** `/viagens`
+* **URL:** `/trips`
 
 ### 3. Buscar Viagem por ID
 
 * **Método:** `GET`
-* **URL:** `/viagens/{id}`
+* **URL:** `/trips/{id}`
 
 ---
 
-## Passagens (`/passagens`)
+## Passagens (`/tickets`)
 
 ### 1. Comprar Passagem
 
 **Atenção:** Este endpoint usa **Query Parameters**, não JSON no corpo.
 
 * **Método:** `POST`
-* **URL:** `/passagens/comprar?userId={userId}&tripId={tripId}&numeroAssento={assento}`
+* **URL:** `/tickets/buy?userId={userId}&tripId={tripId}&seatNumber={seat}`
 * **Exemplo de chamada:**
-`POST /passagens/comprar?userId=1&tripId=5&numeroAssento=12`
+`POST /tickets/buy?userId=1&tripId=5&seatNumber=12`
 
 ### 2. Listar Passagens Vendidas
 
 * **Método:** `GET`
-* **URL:** `/passagens`
+* **URL:** `/tickets`
 
 ---
 
-## Documentos (`/documentos`)
+## Documentos (`/documents`)
 
 ### 1. Enviar Documento (Vincular a Usuário)
 
 * **Método:** `POST`
-* **URL:** `/documentos/usuario/{userId}`
+* **URL:** `/documents/user/{userId}`
 * **Body (JSON):**
 * *Status iniciais recomendados: `PENDENTE*`
 
@@ -111,17 +112,17 @@
 ### 2. Listar Documentos de um Usuário
 
 * **Método:** `GET`
-* **URL:** `/documentos/usuario/{userId}`
+* **URL:** `/documents/user/{userId}`
 
 ### 3. Aprovar Documento
 
 * **Método:** `PUT`
-* **URL:** `/documentos/{id}/aprovar`
+* **URL:** `/documents/{id}/aprove`
 
 ### 4. Rejeitar Documento
 
 * **Método:** `PUT`
-* **URL:** `/documentos/{id}/rejeitar`
+* **URL:** `/documents/{id}/reject`
 
 ---
 

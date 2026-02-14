@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("viagens")
+@RequestMapping("/trips")
 @RequiredArgsConstructor
 public class TripController {
 
@@ -17,19 +17,19 @@ public class TripController {
 
     
     @PostMapping
-    public ResponseEntity<Trip> cadastrar(@RequestBody Trip trip) {
-        return ResponseEntity.ok(service.cadastrar(trip));
+    public ResponseEntity<Trip> create(@RequestBody Trip trip) {
+        return ResponseEntity.ok(service.create(trip));
     }
 
 
     @GetMapping
-    public ResponseEntity<List<Trip>> listar() {
-        return ResponseEntity.ok(service.listarTodas());
+    public ResponseEntity<List<Trip>> list() {
+        return ResponseEntity.ok(service.listAll());
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Trip> buscar(@PathVariable Long id) {
-        return ResponseEntity.ok(service.buscarPorId(id));
+    public ResponseEntity<Trip> search(@PathVariable Long id) {
+        return ResponseEntity.ok(service.searchById(id));
     }
 }

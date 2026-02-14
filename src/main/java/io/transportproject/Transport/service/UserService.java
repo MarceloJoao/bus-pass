@@ -13,18 +13,18 @@ public class UserService {
 
     private final UserRepository repository;
 
-    // cadastrar usuário
-    public User cadastrar(User user) {
+    // Cadastrar usuário
+    public User create(User user) {
         return repository.save(user);
     }
 
-    // listar todos os usuários
-    public List<User> listarTodos() {
+    // Listar todos os usuários
+    public List<User> listAll() {
         return repository.findAll();
     }
 
-    // buscar usuário por ID
-    public User buscarPorId(Long id) {
+    // Buscar usuário por ID
+    public User searchById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
