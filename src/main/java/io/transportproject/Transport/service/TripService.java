@@ -30,6 +30,7 @@ public class TripService {
         existingTrip.setDestination(updatedTripData.getDestination());
         existingTrip.setDepartureTime(updatedTripData.getDepartureTime());
         existingTrip.setType(updatedTripData.getType());
+        existingTrip.setDetails(updatedTripData.getDetails());
 
         // 3. Salva a alteração
         return repository.save(existingTrip);
