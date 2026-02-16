@@ -22,6 +22,12 @@ public class TripController {
     }
 
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Trip> update(@PathVariable Long id, @RequestBody Trip trip) {
+        return ResponseEntity.ok(service.update(id, trip));
+    }
+
+
     @GetMapping
     public ResponseEntity<List<Trip>> list() {
         return ResponseEntity.ok(service.listAll());
