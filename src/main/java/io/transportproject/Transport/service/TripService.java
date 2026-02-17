@@ -41,9 +41,16 @@ public class TripService {
         return repository.findAll();
     }
 
-    // buscar por ID
+    // Buscar por ID
     public Trip searchById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Viagem não encontrada"));
+    }
+
+    // Deletar viagem
+    public void delete(Long id) {
+        Trip existingTrip = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Trip not found with ID: " + id));
+        repository.delete(existingTrip);
     }
 }

@@ -38,4 +38,10 @@ public class TripController {
     public ResponseEntity<Trip> search(@PathVariable Long id) {
         return ResponseEntity.ok(service.searchById(id));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+}
 }
