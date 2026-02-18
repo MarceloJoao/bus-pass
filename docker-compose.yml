@@ -16,6 +16,7 @@ services:
   app:
     build: .
     container_name: transport-api
+    restart: on-failure
     depends_on:
       - db
     ports:

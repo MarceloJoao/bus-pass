@@ -4,9 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "documentos")
+@Table(name = "documents")
 @Data
-public class Documento {
+public class Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,17 +14,17 @@ public class Documento {
 
     // Usuário dono do documento
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private User usuario;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(nullable = false)
-    private String nomeArquivo;
+    private String fileName;
 
     // caminho ou URL do PDF
     @Column(nullable = false)
-    private String urlArquivo;
+    private String filePath;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatusDocumento status;
+    private DocumentStatus status;
 }

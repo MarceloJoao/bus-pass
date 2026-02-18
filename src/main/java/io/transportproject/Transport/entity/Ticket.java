@@ -5,13 +5,13 @@ import lombok.Data;
 
 @Entity
 @Table(
-    name = "passagens",
+    name = "tickets",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"viagem_id", "numero_assento"})
+        @UniqueConstraint(columnNames = {"trip_id", "seat_number"})
     }
 )
 @Data
-public class Passagem {
+public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,19 +19,19 @@ public class Passagem {
 
     // Usuário que comprou a passagem
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private User usuario;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     // Viagem associada
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "viagem_id", nullable = false)
-    private Trip viagem;
+    @JoinColumn(name = "trip_id", nullable = false)
+    private Trip trip;
 
     // Número do assento
-    @Column(name = "numero_assento", nullable = false)
-    private Integer numeroAssento;
+    @Column(name = "seat_number", nullable = false)
+    private Integer seatNumber;
 
     // Se já foi pago
     @Column(nullable = false)
-    private Boolean pago = false;
+    private Boolean paid = false;
 }

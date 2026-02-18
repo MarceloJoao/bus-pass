@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "viagens")
+@Table(name = "trips")
 @Data
 public class Trip {
 
@@ -14,15 +14,18 @@ public class Trip {
     private Long id;
 
     @Column(nullable = false)
-    private String origem;
+    private String origin;
 
     @Column(nullable = false)
-    private String destino;
+    private String destination;
 
     @Column(nullable = false)
-    private LocalDateTime horarioPartida;
+    private LocalDateTime departureTime;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TipoViagem tipo;
+    private TripType type;
+
+    @Column(nullable = false)
+    private String details;
 }
