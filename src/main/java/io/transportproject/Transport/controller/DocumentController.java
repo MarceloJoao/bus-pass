@@ -15,9 +15,9 @@ public class DocumentController {
     private final DocumentService service;
 
     @PostMapping("/user/{userId}")
-    public Document criar(@PathVariable Long userId,
+    public Document create(@PathVariable Long userId,
                            @RequestBody Document documento) {
-        return service.criar(userId, documento);
+        return service.create(userId, documento);
     }
 
     @GetMapping("/user/{userId}")

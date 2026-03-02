@@ -17,7 +17,7 @@ public class DocumentService {
     private final DocumentRepository documentRepository;
     private final UserRepository userRepository;
 
-    public Document criar(Long userId, Document document) {
+    public Document create(Long userId, Document document) {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));

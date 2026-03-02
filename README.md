@@ -100,8 +100,8 @@
 
 ```json
 {
-  "nomeArquivo": "comprovante_residencia.pdf",
-  "urlArquivo": "http://s3.aws.../arquivo.pdf",
+  "fileName": "comprovante_residencia.pdf",
+  "filePath": "http://s3.aws.../arquivo.pdf",
   "status": "PENDENTE"
 }
 
