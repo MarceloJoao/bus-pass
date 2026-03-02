@@ -32,7 +32,7 @@ public class DocumentService {
         return documentRepository.findByUserId(userId);
     }
 
-    public Document aprove(Long id) {
+    public Document approve(Long id) {
         Document doc = documentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Documento não encontrado"));
 
@@ -46,5 +46,24 @@ public class DocumentService {
 
         doc.setStatus(DocumentStatus.REJEITADO);
         return documentRepository.save(doc);
+    }
+
+    public Document update(Long id, Document updatedDocumentData) {
+        Document existingDocument = documentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Document not found with ID: " + id));
+
+        existingDocument.setFileName(updatedDocumentData.getFileName());
+        existingDocument.setFilePath(updatedDocumentData.getFilePath());
+        existingDocument.setStatus(DocumentStatus.PENDENTE); // Reseta o status para PENDENTE após atualização
+
+        return documentRepository.save(existingDocument);
+    }
+
+    public Document delete(Long id) {
+        Document existingDocument = documentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Document not found with ID: " + id));
+
+        documentRepository.delete(existingDocument);
+        return existingDocument;
     }
 }

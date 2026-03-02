@@ -25,13 +25,23 @@ public class DocumentController {
         return service.listByUser(userId);
     }
 
-    @PutMapping("/{id}/aprove")
-    public Document aprove(@PathVariable Long id) {
-        return service.aprove(id);
+    @PutMapping("/{id}/approve")
+    public Document approve(@PathVariable Long id) {
+        return service.approve(id);
     }
 
     @PutMapping("/{id}/reject")
     public Document reject(@PathVariable Long id) {
         return service.reject(id);
+    }
+
+    @PutMapping("/{id}")
+    public Document update(@PathVariable Long id, @RequestBody Document documento) {
+        return service.update(id, documento);
+    }
+
+    @DeleteMapping("/{id}")
+    public Document delete(@PathVariable Long id) {
+        return service.delete(id);
     }
 }
