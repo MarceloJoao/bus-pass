@@ -1,8 +1,11 @@
 package io.transportproject.Transport.controller;
 
-import io.transportproject.Transport.entity.User;
+import io.transportproject.Transport.dto.request.CreateUserRequest;
+import io.transportproject.Transport.dto.response.UserResponse;
 import io.transportproject.Transport.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,21 +18,16 @@ public class UserController {
 
     private final UserService service;
 
-    // POST - cadastrar usuário
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody User user) {
-        return ResponseEntity.ok(service.create(user));
+    public ResponseEntity<UserResponse> create(
+            @Valid @RequestBody CreateUserRequest request
+    ) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(service.create(request));
     }
 
-    // GET - listar usuários
     @GetMapping
-    public ResponseEntity<List<User>> list() {
+    public ResponseEntity<List<UserResponse>> list() {
         return ResponseEntity.ok(service.listAll());
-    }
-
-    // GET - buscar usuário por id
-    @GetMapping("/{id}")
-    public ResponseEntity<User> search(@PathVariable Long id) {
-        return ResponseEntity.ok(service.searchById(id));
     }
 }
