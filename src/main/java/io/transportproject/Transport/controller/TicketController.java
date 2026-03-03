@@ -1,8 +1,11 @@
 package io.transportproject.Transport.controller;
 
-import io.transportproject.Transport.entity.Ticket;
+import io.transportproject.Transport.dto.request.CreateTicketRequest;
+import io.transportproject.Transport.dto.response.TicketResponse;
 import io.transportproject.Transport.service.TicketService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,21 +18,22 @@ public class TicketController {
 
     private final TicketService service;
 
-    // Comprar passagem
-    @PostMapping("/buy")
-    public ResponseEntity<Ticket> buy(
-            @RequestParam Long userId,
-            @RequestParam Long tripId,
-            @RequestParam Integer seatNumber
+    // Criar nova passagem
+    @PostMapping
+    public ResponseEntity<TicketResponse> create(
+            @Valid @RequestBody CreateTicketRequest request
     ) {
-        return ResponseEntity.ok(
-                service.buy(userId, tripId, seatNumber)
-        );
+
+        TicketResponse response = service.buy(request);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED) // 201
+                .body(response);
     }
 
-    // listar passagens
+    // Listar passagens
     @GetMapping
-    public ResponseEntity<List<Ticket>> list() {
+    public ResponseEntity<List<TicketResponse>> list() {
         return ResponseEntity.ok(service.listAll());
     }
 }
