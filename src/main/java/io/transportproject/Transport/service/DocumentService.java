@@ -1,5 +1,7 @@
 package io.transportproject.Transport.service;
 
+import io.transportproject.Transport.dto.request.CreateDocumentRequest;
+import io.transportproject.Transport.dto.response.DocumentResponse;
 import io.transportproject.Transport.entity.Document;
 import io.transportproject.Transport.entity.DocumentStatus;
 import io.transportproject.Transport.entity.User;
@@ -17,53 +19,88 @@ public class DocumentService {
     private final DocumentRepository documentRepository;
     private final UserRepository userRepository;
 
-    public Document create(Long userId, Document document) {
+    public DocumentResponse create(Long userId, CreateDocumentRequest request) {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+        Document document = new Document();
         document.setUser(user);
+        document.setFileName(request.getFileName());
+        document.setFilePath(request.getFilePath());
         document.setStatus(DocumentStatus.PENDENTE);
 
-        return documentRepository.save(document);
+        Document saved = documentRepository.save(document);
+
+        return mapToResponse(saved);
     }
 
-    public List<Document> listByUser(Long userId) {
-        return documentRepository.findByUserId(userId);
+    public List<DocumentResponse> listByUser(Long userId) {
+        return documentRepository.findByUserId(userId)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
-    public Document approve(Long id) {
+    public DocumentResponse approve(Long id) {
+
         Document doc = documentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Documento não encontrado"));
 
         doc.setStatus(DocumentStatus.APROVADO);
-        return documentRepository.save(doc);
+
+        return mapToResponse(documentRepository.save(doc));
     }
 
-    public Document reject(Long id) {
+    public DocumentResponse reject(Long id) {
+
         Document doc = documentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Documento não encontrado"));
 
         doc.setStatus(DocumentStatus.REJEITADO);
-        return documentRepository.save(doc);
+
+        return mapToResponse(documentRepository.save(doc));
     }
 
-    public Document update(Long id, Document updatedDocumentData) {
+    public DocumentResponse update(Long id, CreateDocumentRequest request) {
+
         Document existingDocument = documentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Document not found with ID: " + id));
+                .orElseThrow(() -> new RuntimeException("Documento não encontrado"));
 
-        existingDocument.setFileName(updatedDocumentData.getFileName());
-        existingDocument.setFilePath(updatedDocumentData.getFilePath());
-        existingDocument.setStatus(DocumentStatus.PENDENTE); // Reseta o status para PENDENTE após atualização
+        existingDocument.setFileName(request.getFileName());
+        existingDocument.setFilePath(request.getFilePath());
+        existingDocument.setStatus(DocumentStatus.PENDENTE);
 
-        return documentRepository.save(existingDocument);
+        Document saved = documentRepository.save(existingDocument);
+
+        return mapToResponse(saved);
     }
 
-    public Document delete(Long id) {
+    public DocumentResponse delete(Long id) {
+
         Document existingDocument = documentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Document not found with ID: " + id));
+                .orElseThrow(() -> new RuntimeException("Documento não encontrado"));
 
         documentRepository.delete(existingDocument);
-        return existingDocument;
+
+        return mapToResponse(existingDocument);
+    }
+
+    public List<DocumentResponse> listPending() {
+
+        return documentRepository.findByStatus(DocumentStatus.PENDENTE)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    private DocumentResponse mapToResponse(Document document) {
+        return DocumentResponse.builder()
+                .id(document.getId())
+                .userId(document.getUser().getId())
+                .fileName(document.getFileName())
+                .filePath(document.getFilePath())
+                .status(document.getStatus())
+                .build();
     }
 }
