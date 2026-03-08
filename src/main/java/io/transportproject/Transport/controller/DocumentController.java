@@ -2,6 +2,7 @@ package io.transportproject.Transport.controller;
 
 import io.transportproject.Transport.dto.request.CreateDocumentRequest;
 import io.transportproject.Transport.dto.response.DocumentResponse;
+import io.transportproject.Transport.entity.DocumentType;
 import io.transportproject.Transport.service.DocumentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/documents")
 @RequiredArgsConstructor
@@ -34,6 +36,11 @@ public class DocumentController {
     @GetMapping("/pending")
     public List<DocumentResponse> listPending() {
         return service.listPending();
+    }
+
+    @GetMapping("/type/{type}")
+    public List<DocumentResponse> listByType(@PathVariable DocumentType type) {
+        return service.listByType(type);
     }
 
     // aprovar documento

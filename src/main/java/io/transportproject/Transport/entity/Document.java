@@ -27,4 +27,7 @@ public class Document {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private DocumentStatus status;
+
+    @Enumerated(EnumType.STRING)
+    private DocumentType type;
 }

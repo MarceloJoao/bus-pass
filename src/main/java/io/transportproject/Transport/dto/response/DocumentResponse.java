@@ -1,6 +1,7 @@
 package io.transportproject.Transport.dto.response;
 
 import io.transportproject.Transport.entity.DocumentStatus;
+import io.transportproject.Transport.entity.DocumentType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,4 +14,5 @@ public class DocumentResponse {
     private String fileName;
     private String filePath;
     private DocumentStatus status;
+    private DocumentType type;
 }
