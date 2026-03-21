@@ -1,5 +1,6 @@
 package io.transportproject.Transport.service;
 
+import io.transportproject.Transport.dto.request.CreateTripRequest;
 import io.transportproject.Transport.entity.Trip;
 import io.transportproject.Transport.repository.TripRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,15 @@ public class TripService {
     private final TripRepository repository;
 
     // Cadastrar viagem
-    public Trip create(Trip trip) {
+    public Trip create(CreateTripRequest request) {
+
+        Trip trip = new Trip();
+
+        trip.setOrigin(request.getOrigin());
+        trip.setDestination(request.getDestination());
+        trip.setDepartureTime(request.getDepartureTime());
+        trip.setAvailableSeats(request.getAvailableSeats());
+
         return repository.save(trip);
     }
 

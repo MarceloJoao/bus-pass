@@ -1,5 +1,6 @@
 package io.transportproject.Transport.controller;
 
+import io.transportproject.Transport.dto.request.CreateTripRequest;
 import io.transportproject.Transport.entity.Trip;
 import io.transportproject.Transport.service.TripService;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+
 @RestController
 @RequestMapping("/trips")
 @RequiredArgsConstructor
@@ -16,10 +17,10 @@ public class TripController {
 
     private final TripService service;
 
-    
+
     @PostMapping
-    public ResponseEntity<Trip> create(@RequestBody Trip trip) {
-        return ResponseEntity.ok(service.create(trip));
+    public Trip create(@RequestBody CreateTripRequest request) {
+        return service.create(request);
     }
 
 

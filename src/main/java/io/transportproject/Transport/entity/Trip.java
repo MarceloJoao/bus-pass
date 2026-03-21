@@ -1,5 +1,6 @@
 package io.transportproject.Transport.entity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -26,6 +27,10 @@ public class Trip {
     @Column(nullable = false)
     private TripType type;
 
+    @Column(name = "available_seats", nullable = false)
+    private Integer availableSeats = 0;
+
     @Column(nullable = false)
     private String details;
+
 }
